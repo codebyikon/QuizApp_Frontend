@@ -122,9 +122,9 @@ const AssessmentsManagement: React.FC = () => {
 
     return (
         <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                <h1 style={{ borderBottom: '2px solid #333', paddingBottom: '0.5rem', margin: 0 }}>Assessment Management</h1>
-                <button onClick={() => navigate('/admin')} style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
+                <h1 style={{ borderBottom: '2px solid var(--color-accent)', paddingBottom: '0.5rem', margin: 0, fontSize: '2.5rem' }}>Assessment Management</h1>
+                <button onClick={() => navigate('/admin')} style={{ padding: '0.75rem 1.25rem', cursor: 'pointer', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)' }}>
                     Back to Dashboard
                 </button>
             </div>
@@ -158,7 +158,7 @@ const AssessmentsManagement: React.FC = () => {
             </button>
 
             {showForm && (
-                <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem', border: '1px solid #ddd', borderRadius: '12px', background: '#FAFAFA' }}>
+                <div className="glass-panel" style={{ padding: '2.5rem', marginBottom: '2.5rem' }}>
                     <h3 style={{ marginTop: 0 }}>Create New Assessment</h3>
                     <form onSubmit={handleCreate} style={{ display: 'grid', gap: '1.5rem' }}>
                         <div>
@@ -167,7 +167,7 @@ const AssessmentsManagement: React.FC = () => {
                                 type="text"
                                 value={newAssessment.title}
                                 onChange={(e) => setNewAssessment({ ...newAssessment, title: e.target.value })}
-                                style={{ width: '100%', padding: '0.75rem', borderRadius: '6px', border: '1px solid #ccc' }}
+                                style={{ width: '100%', padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', background: 'var(--color-bg-primary)', color: 'var(--color-text-primary)' }}
                                 placeholder="e.g. Mathematics Quiz 1"
                                 required
                             />
@@ -179,7 +179,7 @@ const AssessmentsManagement: React.FC = () => {
                                 <select
                                     value={newAssessment.categoryId}
                                     onChange={(e) => setNewAssessment({ ...newAssessment, categoryId: e.target.value })}
-                                    style={{ width: '100%', padding: '0.75rem', borderRadius: '6px', border: '1px solid #ccc' }}
+                                    style={{ width: '100%', padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', background: 'var(--color-bg-primary)', color: 'var(--color-text-primary)' }}
                                     required
                                 >
                                     <option value="">Select a category</option>
@@ -195,14 +195,14 @@ const AssessmentsManagement: React.FC = () => {
                                     type="number"
                                     value={newAssessment.duration || ''}
                                     onChange={(e) => setNewAssessment({ ...newAssessment, duration: e.target.value ? parseInt(e.target.value) : undefined })}
-                                    style={{ width: '100%', padding: '0.75rem', borderRadius: '6px', border: '1px solid #ccc' }}
+                                    style={{ width: '100%', padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', background: 'var(--color-bg-primary)', color: 'var(--color-text-primary)' }}
                                     placeholder="Optional"
                                     min="1"
                                 />
                             </div>
                         </div>
 
-                        <div style={{ border: '2px dashed #ccc', padding: '1.5rem', borderRadius: '8px', background: '#fff' }}>
+                        <div style={{ border: '2px dashed var(--color-border)', padding: '1.5rem', borderRadius: 'var(--radius-lg)', background: 'rgba(255, 255, 255, 0.03)' }}>
                             <h4 style={{ marginTop: 0 }}>Add Question</h4>
 
                             <div style={{ marginBottom: '1rem' }}>
@@ -210,47 +210,71 @@ const AssessmentsManagement: React.FC = () => {
                                 <textarea
                                     value={currentQuestion.text}
                                     onChange={(e) => setCurrentQuestion({ ...currentQuestion, text: e.target.value })}
-                                    style={{ width: '100%', padding: '0.75rem', borderRadius: '6px', border: '1px solid #ccc', minHeight: '80px' }}
+                                    style={{ width: '100%', padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', background: 'var(--color-bg-primary)', color: 'var(--color-text-primary)', minHeight: '80px' }}
                                     placeholder="Enter your question"
                                 />
                             </div>
 
                             <div style={{ marginBottom: '1rem' }}>
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Options</label>
-                                {currentQuestion.options.map((option, idx) => (
-                                    <div key={idx} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem', alignItems: 'center' }}>
-                                        <input
-                                            type="radio"
-                                            name="correctAnswer"
-                                            checked={currentQuestion.correctAnswer === idx}
-                                            onChange={() => setCurrentQuestion({ ...currentQuestion, correctAnswer: idx })}
-                                        />
-                                        <input
-                                            type="text"
-                                            value={option}
-                                            onChange={(e) => {
-                                                const newOptions = [...currentQuestion.options];
-                                                newOptions[idx] = e.target.value;
-                                                setCurrentQuestion({ ...currentQuestion, options: newOptions });
-                                            }}
-                                            style={{ flex: 1, padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc' }}
-                                            placeholder={`Option ${idx + 1}`}
-                                        />
-                                    </div>
-                                ))}
-                                <small style={{ color: '#666' }}>Select the radio button for the correct answer</small>
+                                <label style={{ display: 'block', marginBottom: '0.8rem', fontWeight: 600, color: 'var(--color-text-primary)' }}>Options (select the correct one)</label>
+                                {currentQuestion.options.map((option, idx) => {
+                                    const isCorrect = currentQuestion.correctAnswer === idx;
+                                    return (
+                                        <div key={idx} style={{
+                                            display: 'flex',
+                                            gap: '0.75rem',
+                                            marginBottom: '0.75rem',
+                                            alignItems: 'center',
+                                            padding: '0.5rem',
+                                            borderRadius: 'var(--radius-md)',
+                                            background: isCorrect ? 'rgba(16, 185, 129, 0.08)' : 'transparent',
+                                            border: `1px solid ${isCorrect ? 'var(--color-success)' : 'transparent'}`,
+                                            transition: 'all 0.2s ease'
+                                        }}>
+                                            <input
+                                                type="radio"
+                                                name="correctAnswer"
+                                                checked={isCorrect}
+                                                onChange={() => setCurrentQuestion({ ...currentQuestion, correctAnswer: idx })}
+                                                style={{ width: '20px', height: '20px', cursor: 'pointer', accentColor: 'var(--color-success)' }}
+                                            />
+                                            <input
+                                                type="text"
+                                                value={option}
+                                                onChange={(e) => {
+                                                    const newOptions = [...currentQuestion.options];
+                                                    newOptions[idx] = e.target.value;
+                                                    setCurrentQuestion({ ...currentQuestion, options: newOptions });
+                                                }}
+                                                style={{
+                                                    flex: 1,
+                                                    padding: '0.75rem',
+                                                    borderRadius: 'var(--radius-sm)',
+                                                    border: `1px solid ${isCorrect ? 'var(--color-success)' : 'var(--color-border)'}`,
+                                                    background: 'var(--color-bg-primary)',
+                                                    color: 'var(--color-text-primary)',
+                                                    boxShadow: isCorrect ? '0 0 0 2px rgba(16, 185, 129, 0.1)' : 'none'
+                                                }}
+                                                placeholder={`Option ${idx + 1}`}
+                                            />
+                                            {isCorrect && <span style={{ color: 'var(--color-success)', fontWeight: 'bold', fontSize: '0.8rem' }}>CORRECT</span>}
+                                        </div>
+                                    );
+                                })}
                             </div>
 
                             <button
                                 type="button"
                                 onClick={handleAddQuestion}
                                 style={{
-                                    padding: '0.5rem 1rem',
-                                    background: '#007BFF',
+                                    padding: '0.75rem 1.25rem',
+                                    background: 'var(--color-accent)',
                                     color: 'white',
                                     border: 'none',
-                                    borderRadius: '4px',
-                                    cursor: 'pointer'
+                                    borderRadius: 'var(--radius-md)',
+                                    cursor: 'pointer',
+                                    fontWeight: 600,
+                                    transition: 'all 0.2s'
                                 }}
                             >
                                 Add Question to Assessment
@@ -262,13 +286,13 @@ const AssessmentsManagement: React.FC = () => {
                                 <h4>Questions Added ({newAssessment.questions.length})</h4>
                                 <ul style={{ listStyle: 'none', padding: 0 }}>
                                     {newAssessment.questions.map((q, idx) => (
-                                        <li key={idx} style={{ padding: '1rem', border: '1px solid #eee', borderRadius: '6px', marginBottom: '0.5rem', background: '#fff' }}>
+                                        <li key={idx} style={{ padding: '1.25rem', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', marginBottom: '1rem', background: 'rgba(255, 255, 255, 0.03)' }}>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
                                                 <div style={{ flex: 1 }}>
-                                                    <strong>Q{idx + 1}:</strong> {q.text}
-                                                    <div style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#666' }}>
+                                                    <strong style={{ color: 'var(--color-text-primary)' }}>Q{idx + 1}:</strong> <span style={{ color: 'var(--color-text-primary)' }}>{q.text}</span>
+                                                    <div style={{ marginTop: '0.75rem', fontSize: '0.9rem' }}>
                                                         {q.options.map((opt, i) => (
-                                                            <div key={i} style={{ color: i === q.correctAnswer ? '#28a745' : '#666' }}>
+                                                            <div key={i} style={{ color: i === q.correctAnswer ? 'var(--color-success)' : 'var(--color-text-secondary)', marginBottom: '0.25rem' }}>
                                                                 {i === q.correctAnswer ? '✓ ' : '○ '}{opt}
                                                             </div>
                                                         ))}
@@ -307,8 +331,8 @@ const AssessmentsManagement: React.FC = () => {
                 </div>
             )}
 
-            <div className="glass-panel" style={{ padding: '2rem', border: '1px solid #ddd', borderRadius: '12px', background: '#FAFAFA' }}>
-                <h3 style={{ marginTop: 0 }}>Existing Assessments</h3>
+            <div className="glass-panel" style={{ padding: '2.5rem' }}>
+                <h2 style={{ marginTop: 0, marginBottom: '2rem', fontSize: '1.8rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '1rem' }}>Existing Assessments</h2>
                 {loading ? (
                     <p>Loading...</p>
                 ) : assessments.length === 0 ? (
@@ -318,24 +342,25 @@ const AssessmentsManagement: React.FC = () => {
                         {assessments.map((assessment) => (
                             <div key={assessment._id} style={{
                                 padding: '1.5rem',
-                                border: '1px solid #eee',
-                                borderRadius: '8px',
-                                background: '#fff',
+                                border: '1px solid var(--color-border)',
+                                borderRadius: 'var(--radius-md)',
+                                background: 'rgba(255, 255, 255, 0.03)',
                                 display: 'flex',
                                 justifyContent: 'space-between',
-                                alignItems: 'start'
+                                alignItems: 'center',
+                                transition: 'transform 0.2s ease'
                             }}>
                                 <div style={{ flex: 1 }}>
-                                    <h4 style={{ margin: '0 0 0.5rem 0' }}>{assessment.title}</h4>
-                                    <p style={{ margin: '0.25rem 0', color: '#666', fontSize: '0.9rem' }}>
-                                        <strong>Category:</strong> {getCategoryName(assessment.categoryId)}
+                                    <h4 style={{ margin: '0 0 0.75rem 0', color: 'var(--color-text-primary)', fontSize: '1.2rem' }}>{assessment.title}</h4>
+                                    <p style={{ margin: '0.4rem 0', color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
+                                        <strong style={{ color: 'var(--color-text-primary)' }}>Category:</strong> {getCategoryName(assessment.categoryId)}
                                     </p>
-                                    <p style={{ margin: '0.25rem 0', color: '#666', fontSize: '0.9rem' }}>
-                                        <strong>Questions:</strong> {assessment.questions.length}
+                                    <p style={{ margin: '0.4rem 0', color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
+                                        <strong style={{ color: 'var(--color-text-primary)' }}>Questions:</strong> {assessment.questions.length}
                                     </p>
                                     {assessment.duration && (
-                                        <p style={{ margin: '0.25rem 0', color: '#666', fontSize: '0.9rem' }}>
-                                            <strong>Duration:</strong> {assessment.duration} minutes
+                                        <p style={{ margin: '0.4rem 0', color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
+                                            <strong style={{ color: 'var(--color-text-primary)' }}>Duration:</strong> {assessment.duration} minutes
                                         </p>
                                     )}
                                 </div>

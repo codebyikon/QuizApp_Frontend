@@ -54,7 +54,7 @@ const CategoriesManagement: React.FC = () => {
 
     return (
         <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
-            <h1 style={{ marginBottom: '1.5rem', borderBottom: '2px solid #333', paddingBottom: '0.5rem' }}>Category Management</h1>
+            <h1 style={{ marginBottom: '2.5rem', borderBottom: '2px solid var(--color-accent)', paddingBottom: '0.5rem', fontSize: '2.5rem' }}>Category Management</h1>
 
             {message && (
                 <div style={{
@@ -68,7 +68,7 @@ const CategoriesManagement: React.FC = () => {
                 </div>
             )}
 
-            <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem', border: '1px solid #ddd', borderRadius: '12px', background: '#FAFAFA' }}>
+            <div className="glass-panel" style={{ padding: '2.5rem', marginBottom: '2.5rem' }}>
                 <h3 style={{ marginTop: 0 }}>Add New Category</h3>
                 <form onSubmit={handleCreate} style={{ display: 'grid', gap: '1rem' }}>
                     <div>
@@ -77,7 +77,7 @@ const CategoriesManagement: React.FC = () => {
                             type="text"
                             value={newCategory.name}
                             onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '6px', border: '1px solid #ccc' }}
+                            style={{ width: '100%', padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', background: 'var(--color-bg-primary)', color: 'var(--color-text-primary)' }}
                             placeholder="e.g. Mathematics"
                             required
                         />
@@ -87,21 +87,22 @@ const CategoriesManagement: React.FC = () => {
                         <textarea
                             value={newCategory.description}
                             onChange={(e) => setNewCategory({ ...newCategory, description: e.target.value })}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '6px', border: '1px solid #ccc', minHeight: '80px' }}
+                            style={{ width: '100%', padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', background: 'var(--color-bg-primary)', color: 'var(--color-text-primary)', minHeight: '80px' }}
                             placeholder="Optional description"
                         />
                     </div>
                     <button
                         type="submit"
                         style={{
-                            padding: '0.75rem 1.5rem',
-                            background: '#007BFF',
+                            padding: '0.75rem 2rem',
+                            background: 'var(--color-accent)',
                             color: 'white',
                             border: 'none',
-                            borderRadius: '6px',
+                            borderRadius: 'var(--radius-md)',
                             cursor: 'pointer',
                             fontWeight: 600,
-                            justifySelf: 'start'
+                            justifySelf: 'start',
+                            transition: 'all 0.2s'
                         }}
                     >
                         Create Category
@@ -109,8 +110,8 @@ const CategoriesManagement: React.FC = () => {
                 </form>
             </div>
 
-            <div className="glass-panel" style={{ padding: '2rem', border: '1px solid #ddd', borderRadius: '12px', background: '#FAFAFA' }}>
-                <h3 style={{ marginTop: 0 }}>Existing Categories</h3>
+            <div className="glass-panel" style={{ padding: '2.5rem' }}>
+                <h2 style={{ marginTop: 0, marginBottom: '2rem', fontSize: '1.8rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '1rem' }}>Existing Categories</h2>
                 {loading ? (
                     <p>Loading...</p>
                 ) : categories.length === 0 ? (
@@ -119,15 +120,18 @@ const CategoriesManagement: React.FC = () => {
                     <ul style={{ listStyle: 'none', padding: 0 }}>
                         {categories.map((category) => (
                             <li key={category._id} style={{
-                                padding: '1rem',
-                                borderBottom: '1px solid #eee',
+                                padding: '1.25rem',
+                                borderBottom: '1px solid var(--color-border)',
                                 display: 'flex',
                                 justifyContent: 'space-between',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                background: 'rgba(255, 255, 255, 0.02)',
+                                marginBottom: '0.5rem',
+                                borderRadius: 'var(--radius-sm)'
                             }}>
                                 <div>
-                                    <strong style={{ fontSize: '1.1rem' }}>{category.name}</strong>
-                                    {category.description && <p style={{ margin: '0.25rem 0 0', color: '#666', fontSize: '0.9rem' }}>{category.description}</p>}
+                                    <strong style={{ fontSize: '1.2rem', color: 'var(--color-text-primary)' }}>{category.name}</strong>
+                                    {category.description && <p style={{ margin: '0.4rem 0 0', color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>{category.description}</p>}
                                 </div>
                                 <button
                                     onClick={() => handleDelete(category._id)}
