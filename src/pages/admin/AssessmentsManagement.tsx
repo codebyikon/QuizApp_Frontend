@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { assessmentsService } from '../../services/assessments.service';
 import { categoriesService } from '../../services/categories.service';
 import type { Assessment, CreateAssessmentDto, Question } from '../../types/assessment.types';
 import type { Category } from '../../types/category.types';
 
 const AssessmentsManagement: React.FC = () => {
-    const navigate = useNavigate();
     const [assessments, setAssessments] = useState<Assessment[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
