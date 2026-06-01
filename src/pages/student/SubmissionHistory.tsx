@@ -42,10 +42,10 @@ const SubmissionHistory: React.FC = () => {
     };
 
     const getAssessmentTitle = (submission: Submission) => {
-        if (typeof submission.assessmentId === 'object') {
-            return submission.assessmentId.title;
+        if (submission.assessmentId && typeof submission.assessmentId === 'object') {
+            return (submission.assessmentId as any).title;
         }
-        return 'Assessment';
+        return 'Unknown Assessment';
     };
 
     const indexOfLastItem = currentPage * itemsPerPage;

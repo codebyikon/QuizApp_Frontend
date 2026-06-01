@@ -50,12 +50,12 @@ const AssessmentList: React.FC = () => {
         }
     };
 
-    const getCategoryName = (categoryId: string | { _id: string; name: string }) => {
-        if (typeof categoryId === 'object') {
+    const getCategoryName = (categoryId: string | { _id: string; name: string } | null) => {
+        if (categoryId && typeof categoryId === 'object') {
             return categoryId.name;
         }
         const category = categories.find(c => c._id === categoryId);
-        return category?.name || 'Unknown';
+        return category?.name || 'No Category';
     };
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -128,18 +128,33 @@ const AssessmentList: React.FC = () => {
                             >
                                 <div>
                                     <h3 style={{ marginTop: 0, fontSize: '1.4rem', marginBottom: '0.5rem' }}>{assessment.title}</h3>
-                                    <span style={{
-                                        display: 'inline-block',
-                                        padding: '0.2rem 0.6rem',
-                                        background: 'rgba(59, 130, 246, 0.1)',
-                                        color: 'var(--color-accent)',
-                                        borderRadius: '4px',
-                                        fontSize: '0.8rem',
-                                        fontWeight: 600,
-                                        marginBottom: '1.5rem'
-                                    }}>
-                                        {getCategoryName(assessment.categoryId)}
-                                    </span>
+                                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+                                        <span style={{
+                                            display: 'inline-block',
+                                            padding: '0.3rem 0.8rem',
+                                            background: 'rgba(59, 130, 246, 0.1)',
+                                            color: 'var(--color-accent)',
+                                            borderRadius: '4px',
+                                            fontSize: '0.75rem',
+                                            fontWeight: 700,
+                                            letterSpacing: '0.5px',
+                                            textTransform: 'uppercase'
+                                        }}>
+                                            {getCategoryName(assessment.categoryId)}
+                                        </span>
+                                        <span style={{
+                                            display: 'inline-block',
+                                            padding: '0.3rem 0.8rem',
+                                            background: 'rgba(16, 185, 129, 0.1)',
+                                            color: 'var(--color-success)',
+                                            borderRadius: '4px',
+                                            fontSize: '0.75rem',
+                                            fontWeight: 700,
+                                            letterSpacing: '0.5px'
+                                        }}>
+                                            Class: {assessment.class_level}
+                                        </span>
+                                    </div>
 
                                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '2rem' }}>
                                         <div style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>

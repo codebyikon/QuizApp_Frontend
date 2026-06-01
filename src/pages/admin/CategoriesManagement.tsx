@@ -34,9 +34,10 @@ const CategoriesManagement: React.FC = () => {
             setMessage({ type: 'success', text: 'Category created successfully!' });
             setNewCategory({ name: '', description: '' });
             loadCategories();
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            setMessage({ type: 'error', text: 'Failed to create category.' });
+            const errorMsg = error.response?.data?.message || 'Failed to create category.';
+            setMessage({ type: 'error', text: errorMsg });
         }
     };
 
@@ -46,9 +47,10 @@ const CategoriesManagement: React.FC = () => {
             await categoriesService.delete(id);
             setMessage({ type: 'success', text: 'Category deleted successfully.' });
             loadCategories();
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            setMessage({ type: 'error', text: 'Failed to delete category.' });
+            const errorMsg = error.response?.data?.message || 'Failed to delete category.';
+            setMessage({ type: 'error', text: errorMsg });
         }
     };
 

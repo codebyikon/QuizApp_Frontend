@@ -14,4 +14,8 @@ export const authService = {
         const response = await api.get('/auth/profile');
         return response.data;
     },
+    createAdminOrUser: async (data: RegisterDto) => {
+        const response = await api.post('/admin/create-user', data);
+        return response.data;
+    },
 };

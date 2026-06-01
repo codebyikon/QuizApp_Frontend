@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
+const DEFAULT_LOGO = "/logo.png";
+
 const Navbar: React.FC = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
@@ -35,15 +37,20 @@ const Navbar: React.FC = () => {
                     fontWeight: 'bold',
                     color: 'var(--color-accent)',
                     textDecoration: 'none',
-                    marginRight: '1rem'
+                    marginRight: '1rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem'
                 }}>
-                    ASCETA-QUIZ
+                    <img src={DEFAULT_LOGO} alt="Asceta Logo" style={{ height: '60px', width: 'auto', borderRadius: '6px', objectFit: 'contain' }} />
+                    <span>ASCETA-QUIZ</span>
                 </Link>
 
                 <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }} className="nav-links">
                     {user.role === 'admin' ? (
                         <>
                             <Link to="/admin" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>Dashboard</Link>
+                            <Link to="/admin/users" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>Users</Link>
                             <Link to="/admin/categories" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>Categories</Link>
                             <Link to="/admin/assessments" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>Assessments</Link>
                             <Link to="/admin/analytics" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>Analytics</Link>

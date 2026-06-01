@@ -34,7 +34,9 @@ const LoginPage: React.FC = () => {
       <div className="glass-panel" style={{ padding: '3rem', width: '100%', maxWidth: '450px', animation: 'fadeIn 0.6s ease-out', boxSizing: 'border-box' }}>
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
           <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>🎓</div>
-          <h1 style={{ margin: 0, fontSize: '2.5rem', letterSpacing: '-1px', color: 'var(--color-accent)' }}>ASCETA-QUIZ</h1>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <h1 style={{ margin: 0, fontSize: '2.5rem', letterSpacing: '-1px', color: 'var(--color-accent)' }}>ASCETA-QUIZ</h1>
+          </Link>
           <p style={{ color: 'var(--color-text-secondary)', marginTop: '0.5rem' }}>Empowering Your Academic Journey</p>
         </div>
 

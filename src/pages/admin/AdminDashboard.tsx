@@ -12,6 +12,7 @@ const AdminDashboard: React.FC = () => {
     ];
 
     const modules = [
+        { title: 'User Management', desc: 'Securely provision new Admins or Students.', link: '/admin/users', icon: '👤' },
         { title: 'Category Management', desc: 'Define and organize assessment topics.', link: '/admin/categories', icon: '📁' },
         { title: 'Assessment Builder', desc: 'Create and edit tests with dynamic questions.', link: '/admin/assessments', icon: '🛠️' },
         { title: 'System Analytics', desc: 'Deep dive into student performance data.', link: '/admin/analytics', icon: '📊' }

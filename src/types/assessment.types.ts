@@ -12,6 +12,7 @@ export interface Assessment {
         name: string;
         description?: string;
     };
+    class_level: 'NCE I' | 'NCE II' | 'NCE III';
     questions: Question[];
     duration?: number;
     createdAt?: string;
@@ -21,6 +22,7 @@ export interface Assessment {
 export interface CreateAssessmentDto {
     title: string;
     categoryId: string;
+    class_level: 'NCE I' | 'NCE II' | 'NCE III';
     questions: Question[];
     duration?: number;
 }
@@ -28,6 +30,7 @@ export interface CreateAssessmentDto {
 export interface UpdateAssessmentDto {
     title?: string;
     categoryId?: string;
+    class_level?: 'NCE I' | 'NCE II' | 'NCE III';
     questions?: Question[];
     duration?: number;
 }

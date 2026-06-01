@@ -42,10 +42,10 @@ const AssessmentResult: React.FC = () => {
 
     const getAssessmentTitle = () => {
         if (!submission) return '';
-        if (typeof submission.assessmentId === 'object') {
+        if (submission.assessmentId && typeof submission.assessmentId === 'object') {
             return (submission.assessmentId as any).title;
         }
-        return 'Assessment';
+        return 'Unknown Assessment';
     };
 
     if (loading) {

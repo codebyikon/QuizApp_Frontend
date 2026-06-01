@@ -6,7 +6,8 @@ const RegisterPage: React.FC = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState<'student' | 'admin'>('student');
+    const [sex, setSex] = useState<'male' | 'female'>('male');
+    const [classLevel, setClassLevel] = useState<'NCE I' | 'NCE II' | 'NCE III'>('NCE I');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const { register } = useAuth();
@@ -17,7 +18,7 @@ const RegisterPage: React.FC = () => {
         setError('');
         setLoading(true);
         try {
-            await register({ name, email, password, role });
+            await register({ name, email, password, sex, class_level: classLevel });
             navigate('/login');
         } catch (err: any) {
             setError(err.response?.data?.message || 'Registration failed. Please try again.');
@@ -30,7 +31,9 @@ const RegisterPage: React.FC = () => {
         <div className="flex-center" style={{ minHeight: '100vh', width: '100%', background: 'radial-gradient(circle at center, #1e293b 0%, #0f172a 100%)', padding: '1.5rem' }}>
             <div className="glass-panel" style={{ padding: '3rem', width: '100%', maxWidth: '500px', animation: 'fadeIn 0.6s ease-out', boxSizing: 'border-box' }}>
                 <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-                    <h1 style={{ margin: 0, fontSize: '2.5rem', letterSpacing: '-1px', color: 'var(--color-accent)' }}>ASCETA-QUIZ</h1>
+                    <Link to="/" style={{ textDecoration: 'none' }}>
+                        <h1 style={{ margin: 0, fontSize: '2.5rem', letterSpacing: '-1px', color: 'var(--color-accent)' }}>ASCETA-QUIZ</h1>
+                    </Link>
                     <p style={{ color: 'var(--color-text-secondary)', marginTop: '0.5rem' }}>Join the community of learners</p>
                 </div>
 
@@ -87,15 +90,28 @@ const RegisterPage: React.FC = () => {
                         />
                     </div>
                     <div className="flex-col" style={{ gap: '0.4rem' }}>
-                        <label htmlFor="role" style={{ fontSize: '0.9rem', fontWeight: 600 }}>Account Type</label>
+                        <label htmlFor="sex" style={{ fontSize: '0.9rem', fontWeight: 600 }}>Gender</label>
                         <select
-                            id="role"
-                            value={role}
-                            onChange={(e) => setRole(e.target.value as any)}
+                            id="sex"
+                            value={sex}
+                            onChange={(e) => setSex(e.target.value as any)}
                             style={{ padding: '0.8rem 1rem', background: 'var(--color-bg-primary)' }}
                         >
-                            <option value="student">Student</option>
-                            <option value="admin">Administrator</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div className="flex-col" style={{ gap: '0.4rem' }}>
+                        <label htmlFor="classLevel" style={{ fontSize: '0.9rem', fontWeight: 600 }}>Class Level</label>
+                        <select
+                            id="classLevel"
+                            value={classLevel}
+                            onChange={(e) => setClassLevel(e.target.value as any)}
+                            style={{ padding: '0.8rem 1rem', background: 'var(--color-bg-primary)' }}
+                        >
+                            <option value="NCE I">NCE I</option>
+                            <option value="NCE II">NCE II</option>
+                            <option value="NCE III">NCE III</option>
                         </select>
                     </div>
                     <button

@@ -16,6 +16,7 @@ const AssessmentsManagement: React.FC = () => {
     const [newAssessment, setNewAssessment] = useState<CreateAssessmentDto>({
         title: '',
         categoryId: '',
+        class_level: 'NCE I',
         questions: [],
         duration: undefined
     });
@@ -88,6 +89,7 @@ const AssessmentsManagement: React.FC = () => {
             setNewAssessment({
                 title: '',
                 categoryId: '',
+                class_level: 'NCE I',
                 questions: [],
                 duration: undefined
             });
@@ -112,8 +114,8 @@ const AssessmentsManagement: React.FC = () => {
         }
     };
 
-    const getCategoryName = (categoryId: string | { _id: string; name: string }) => {
-        if (typeof categoryId === 'object') {
+    const getCategoryName = (categoryId: string | { _id: string; name: string } | null) => {
+        if (categoryId && typeof categoryId === 'object') {
             return categoryId.name;
         }
         const category = categories.find(c => c._id === categoryId);
@@ -122,11 +124,8 @@ const AssessmentsManagement: React.FC = () => {
 
     return (
         <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
-                <h1 style={{ borderBottom: '2px solid var(--color-accent)', paddingBottom: '0.5rem', margin: 0, fontSize: '2.5rem' }}>Assessment Management</h1>
-                <button onClick={() => navigate('/admin')} style={{ padding: '0.75rem 1.25rem', cursor: 'pointer', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)' }}>
-                    Back to Dashboard
-                </button>
+            <div style={{ marginBottom: '2.5rem' }}>
+                <h1 style={{ borderBottom: '2px solid var(--color-accent)', paddingBottom: '0.5rem', margin: 0, fontSize: '2.5rem', display: 'inline-block' }}>Assessment Management</h1>
             </div>
 
             {message && (
@@ -173,7 +172,7 @@ const AssessmentsManagement: React.FC = () => {
                             />
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Category *</label>
                                 <select
@@ -186,6 +185,20 @@ const AssessmentsManagement: React.FC = () => {
                                     {categories.map(cat => (
                                         <option key={cat._id} value={cat._id}>{cat.name}</option>
                                     ))}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Class Level *</label>
+                                <select
+                                    value={newAssessment.class_level}
+                                    onChange={(e) => setNewAssessment({ ...newAssessment, class_level: e.target.value as any })}
+                                    style={{ width: '100%', padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', background: 'var(--color-bg-primary)', color: 'var(--color-text-primary)' }}
+                                    required
+                                >
+                                    <option value="NCE I">NCE I</option>
+                                    <option value="NCE II">NCE II</option>
+                                    <option value="NCE III">NCE III</option>
                                 </select>
                             </div>
 
@@ -354,6 +367,9 @@ const AssessmentsManagement: React.FC = () => {
                                     <h4 style={{ margin: '0 0 0.75rem 0', color: 'var(--color-text-primary)', fontSize: '1.2rem' }}>{assessment.title}</h4>
                                     <p style={{ margin: '0.4rem 0', color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
                                         <strong style={{ color: 'var(--color-text-primary)' }}>Category:</strong> {getCategoryName(assessment.categoryId)}
+                                    </p>
+                                    <p style={{ margin: '0.4rem 0', color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
+                                        <strong style={{ color: 'var(--color-text-primary)' }}>Class:</strong> <span style={{ padding: '0.2rem 0.5rem', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--color-accent)', borderRadius: '4px', fontSize: '0.85rem', fontWeight: 'bold' }}>{assessment.class_level}</span>
                                     </p>
                                     <p style={{ margin: '0.4rem 0', color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
                                         <strong style={{ color: 'var(--color-text-primary)' }}>Questions:</strong> {assessment.questions.length}

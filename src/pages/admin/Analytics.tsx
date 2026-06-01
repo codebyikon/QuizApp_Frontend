@@ -58,14 +58,14 @@ const Analytics: React.FC = () => {
     };
 
     const getStudentName = (submission: Submission) => {
-        if (typeof submission.studentId === 'object') {
+        if (submission.studentId && typeof submission.studentId === 'object') {
             return (submission.studentId as any).name;
         }
         return 'Unknown Student';
     };
 
     const getAssessmentTitle = (submission: Submission) => {
-        if (typeof submission.assessmentId === 'object') {
+        if (submission.assessmentId && typeof submission.assessmentId === 'object') {
             return (submission.assessmentId as any).title;
         }
         return 'Unknown Assessment';

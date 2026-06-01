@@ -3,6 +3,8 @@ export interface User {
     name: string;
     email: string;
     role: 'student' | 'admin';
+    sex?: 'male' | 'female';
+    class_level?: 'NCE I' | 'NCE II' | 'NCE III';
 }
 
 export interface LoginDto {
@@ -15,6 +17,8 @@ export interface RegisterDto {
     email: string;
     password: string;
     role?: 'student' | 'admin';
+    sex?: 'male' | 'female';
+    class_level?: 'NCE I' | 'NCE II' | 'NCE III';
 }
 
 export interface AuthResponse {
